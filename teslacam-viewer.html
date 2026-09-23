@@ -369,7 +369,7 @@ body{letter-spacing:-.2px}button,a,input,select{-webkit-tap-highlight-color:tran
 .item .event-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px}.item:has(.event-name) .when{font-size:11.5px;font-weight:500;color:var(--muted)}.item:not(:has(.event-name)) .when{font-size:15px;font-weight:700;color:var(--ink)}
 .folder-help{position:fixed;z-index:70;right:22px;bottom:22px;width:min(400px,calc(100vw - 32px));padding:20px;border-radius:16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:0 12px 45px #0003}.folder-help strong{font-size:14px}.folder-help p{font-size:12px;line-height:1.8;color:var(--muted)}.wrap:has(>.hint){grid-template-rows:auto auto minmax(0,1fr)}
 
-.journey{gap:10px}.journey-head,.journey-scale{display:flex;justify-content:space-between;align-items:center;gap:12px}.journey-label{font-size:13px;font-weight:650}.journey-head strong{font-size:20px;font-variant-numeric:tabular-nums;letter-spacing:.5px;margin-left:8px}.journey-track{position:relative;padding:14px 0 3px}.journey-track input{width:100%;margin:0;accent-color:var(--ok);cursor:pointer;display:block}.journey-scale{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}.journey-scale .note{font-size:10px;text-align:center}.journey-event{position:absolute;top:-4px;transform:translateX(-50%);border:0;background:var(--surface);color:var(--ok);cursor:pointer;font-size:15px;line-height:18px;padding:0 4px}.journey-jump{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:5px}.journey-jump label{font-size:11px;color:var(--muted)}.journey-jump input{min-width:0;max-width:100%;background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;color:var(--ink)}.journey-jump .note{margin-left:auto;font-size:10px}.journey-details{border-top:1px solid var(--line);padding-top:9px}.journey-details summary{font-size:11px;color:var(--muted);cursor:pointer;width:fit-content}.journey-details .segrow{margin-top:10px;max-height:150px;overflow:auto;padding:3px}.journey-details .chip{font-variant-numeric:tabular-nums}@media(max-width:620px){.journey-head{align-items:flex-start}.journey-head strong{font-size:17px}.journey-head #journey-date{display:block;text-align:right}.journey-jump .note{width:100%;margin-left:0}.journey-scale .note{max-width:130px;line-height:1.4}}
+.journey{gap:10px}.journey-head,.journey-scale{display:flex;justify-content:space-between;align-items:center;gap:12px}.journey-label{font-size:13px;font-weight:650}.journey-head strong{font-size:20px;font-variant-numeric:tabular-nums;letter-spacing:.5px;margin-left:8px}.journey-track{position:relative;padding:24px 0 3px}.journey-track input{width:100%;margin:0;accent-color:var(--ok);cursor:pointer;display:block}.journey-hover{position:absolute;top:0;z-index:3;transform:translateX(-50%);padding:4px 7px;border-radius:6px;background:var(--ink);color:var(--surface);font-size:10px;font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .1s}.journey-hover.show{opacity:1}.journey-scale{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}.journey-scale .note{font-size:10px;text-align:center}.journey-event{position:absolute;top:6px;transform:translateX(-50%);border:0;background:var(--surface);color:var(--ok);cursor:pointer;font-size:15px;line-height:18px;padding:0 4px}.journey-jump{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:5px}.journey-jump label{font-size:11px;color:var(--muted)}.journey-jump input{min-width:0;max-width:100%;background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;color:var(--ink)}.journey-jump .note{margin-left:auto;font-size:10px}.journey-details{border-top:1px solid var(--line);padding-top:9px}.journey-details summary{font-size:11px;color:var(--muted);cursor:pointer;width:fit-content}.journey-details .segrow{margin-top:10px;max-height:150px;overflow:auto;padding:3px}.journey-details .chip{font-variant-numeric:tabular-nums}@media(max-width:620px){.journey-head{align-items:flex-start}.journey-head strong{font-size:17px}.journey-head #journey-date{display:block;text-align:right}.journey-jump .note{width:100%;margin-left:0}.journey-scale .note{max-width:130px;line-height:1.4}}
 
 .omroute{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:hidden}.map-connection{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.map-connection label{display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;white-space:nowrap}.map-connection input{accent-color:var(--ok)}.map-connection .note{font-size:11px}.ompin .lb{font-size:10px;padding:3px 6px}.mpbox .mppin text{font-size:10px}
 
@@ -388,7 +388,7 @@ body{letter-spacing:-.2px}button,a,input,select{-webkit-tap-highlight-color:tran
       <input type="checkbox" id="net" checked><span>지도 · 주소</span>
     </label>
     <div class="viewsw" id="viewsw" hidden>
-      <button data-v="list" title="클립을 목록으로 봅니다">목록</button><button data-v="timeline" title="시간 축 위에 펼쳐 봅니다 ( v )">타임라인</button><button data-v="map" title="찍힌 자리를 상대 위치로 봅니다 ( v )">지도</button>
+      <button data-v="timeline" title="시간 축 위에 펼쳐 봅니다 ( v )">타임라인</button><button data-v="list" title="클립을 목록으로 봅니다">목록</button><button data-v="map" title="찍힌 자리를 상대 위치로 봅니다 ( v )">지도</button>
     </div>
     <button class="btn" id="remember" title="새로고침해도 폴더를 기억합니다. 크롬이 드라이브 최상위는 막으므로 TeslaCam 폴더를 골라야 합니다.">기억하며 열기</button>
     <button class="btn go" id="pick">폴더 열기</button>
@@ -465,7 +465,7 @@ function stepRate(dir) {
     : i + dir;
   setRate(RATES[Math.max(0, Math.min(RATES.length - 1, j))]);
 }
-let view = 'list';     // 'list' | 'timeline'
+let view = 'timeline';     // 'timeline' | 'list' | 'map'
 let tlDay = null;      // 타임라인이 보여 주는 날짜 (YYYY-MM-DD)
 let tlZoom = 1;        // 타임라인 가로 배율
 let tlScroll = 0;      // 타임라인 가로 스크롤 위치
@@ -922,7 +922,7 @@ function allSegs() {
   return out.sort((a, b) => a.at - b.at);
 }
 
-const VIEWS = ['list', 'timeline', 'map'];
+const VIEWS = ['timeline', 'list', 'map'];
 
 function setViewMode(v) {
   if (!VIEWS.includes(v) || view === v) return;
@@ -2133,9 +2133,14 @@ function segRow(c) {
   box.setAttribute('aria-label','전체 녹화 탐색');
   const bounds=clipBounds(c), now=curSeg(c).at;
   box.innerHTML='<div class="journey-head"><div><span class="journey-label">전체 녹화</span><span class="note"> · '+c.segments.length+'개 구간</span></div><div><span id="journey-date" class="note"></span> <strong id="journey-now">'+clockTime(now)+'</strong></div></div>'
-    +'<div class="journey-track"><input id="journey-seek" type="range" min="0" max="'+(bounds.end-bounds.start)/1000+'" step="0.1" value="'+(now-bounds.start)/1000+'" aria-label="전체 녹화 시간 이동"><div id="journey-markers"></div></div>'
+    +'<div class="journey-track"><div id="journey-hover" class="journey-hover" aria-hidden="true"></div><input id="journey-seek" type="range" min="0" max="'+(bounds.end-bounds.start)/1000+'" step="0.1" value="'+(now-bounds.start)/1000+'" aria-label="전체 녹화 시간 이동"><div id="journey-markers"></div></div>'
     +'<div class="journey-scale"><span>'+clockTime(bounds.start)+'</span><span id="journey-estimate" class="note"></span><span id="journey-end">'+clockTime(bounds.end)+'</span></div>';
   const range=box.querySelector('#journey-seek');
+  const hover=box.querySelector('#journey-hover');
+  const showHover=e=>{const rect=range.getBoundingClientRect(),track=range.parentElement.getBoundingClientRect();if(!rect.width)return;const x=Math.max(0,Math.min(rect.width,e.clientX-rect.left)),ratio=x/rect.width,at=bounds.start+ratio*(bounds.end-bounds.start);hover.textContent=localDateTime(at).replace('T',' ');hover.style.left=Math.max(58,Math.min(track.width-58,rect.left-track.left+x))+'px';hover.classList.add('show');};
+  range.addEventListener('pointerenter',showHover);
+  range.addEventListener('pointermove',showHover);
+  range.addEventListener('pointerleave',()=>hover.classList.remove('show'));
   range.oninput=()=>{range.dataset.scrubbing='1'; const at=bounds.start+Number(range.value)*1000;box.querySelector('#journey-now').textContent=clockTime(at);box.querySelector('#journey-date').textContent=localDateTime(at).slice(0,10);range.setAttribute('aria-valuetext',localDateTime(at).replace('T',' '));};
   range.onchange=()=>{range.dataset.scrubbing='0';goToMoment(c,bounds.start+Number(range.value)*1000);};
   range.addEventListener('pointercancel',()=>{range.dataset.scrubbing='0';updateJourney();});
@@ -3012,7 +3017,9 @@ function resumeCard(h) {
 
 (async function boot() {
   $('#net').checked = LS.get('net', true);
-  view = VIEWS.includes(LS.get('view', 'list')) ? LS.get('view', 'list') : 'list';
+  const preferredView = LS.get('timelineFirstV1', false) ? LS.get('view', 'timeline') : 'timeline';
+  view = VIEWS.includes(preferredView) ? preferredView : 'timeline';
+  if (!LS.get('timelineFirstV1', false)) { LS.set('view', 'timeline'); LS.set('timelineFirstV1', true); }
   mapMode = LS.get('mapMode', 'one') === 'cards' ? 'cards' : 'one';
   const mp = LS.get('mapPos', null);
   if (mp && typeof mp.cx === 'number' && typeof mp.z === 'number') mapPos = mp;
