@@ -860,10 +860,7 @@ function place(c) {
   const g = geoOf(c);
   if (!g) return e.city || null;
   if (g.addr) return g.addr;                       // 주소를 받아왔으면 주소로
-  const t = addrText(g);
-  return (e.city ? e.city + ' · ' : '')
-    + g.la.toFixed(4) + ', ' + g.lo.toFixed(4)
-    + (t ? ' · ' + t : '');
+  return e.city || addrText(g) || null;
 }
 
 /** 위치가 없을 때 그 이유. "없음" 만 보여주면 암호화 탓인지 원래 없는 건지 알 수 없다. */
@@ -1341,7 +1338,7 @@ function oneMap(pts) {
         + (g.list.length > 1 && !on ? ` 외 ${g.list.length - 1}` : '');
       b.append(lb);
       b.title = g.list.map(x => fmtWhen(x.c.at) + (visibleEventName(x.c) ? ' · ' + visibleEventName(x.c) : '') + (x.c.encrypted ? ' 🔒 암호화' : '')).join('\n')
-        + '\n' + (addrText(g.g) || `${g.la.toFixed(5)}, ${g.lo.toFixed(5)}`)
+        + '\n' + (addrText(g.g) || '주소 확인 불가')
         + (allEnc ? '\n재생 · 저장 불가 (눌러서 이유 보기)'
           : g.list.length > 1 ? '\n눌러서 하나씩 넘겨봅니다' : '\n눌러서 재생');
       b.onclick = e => {
@@ -1463,13 +1460,13 @@ function realGrid(pts) {
     f.referrerPolicy = 'no-referrer-when-downgrade';
     f.src = 'https://www.openstreetmap.org/export/embed.html'
       + `?bbox=${encodeURIComponent(bbox)}&layer=mapnik&marker=${q.la}%2C${q.lo}`;
-    f.title = (addrText(q.g) || `${q.la.toFixed(5)}, ${q.lo.toFixed(5)}`) + ' 지도';
+    f.title = (addrText(q.g) || '주소 확인 불가') + ' 지도';
 
     const cap = document.createElement('div');
     cap.className = 'cap';
     const a1 = document.createElement('div');
     a1.className = 'a';
-    a1.textContent = addrText(q.g) || `${q.la.toFixed(5)}, ${q.lo.toFixed(5)}`;
+    a1.textContent = addrText(q.g) || '주소 확인 불가';
     const b1 = document.createElement('div');
     b1.className = 'b';
     const kinds = [...new Set(q.list.map(x => visibleEventName(x.c)).filter(Boolean))].join(' · ');
@@ -1717,7 +1714,7 @@ function mapStrip() {
       const addr = addrText(head.g);
       const t = el('title');
       t.textContent = q.list.map(x => fmtWhen(x.c.at) + (visibleEventName(x.c) ? ' · ' + visibleEventName(x.c) : '') + (x.c.encrypted ? ' 🔒 암호화' : '')).join('\n')
-        + '\n' + (addr || `${head.g.la.toFixed(5)}, ${head.g.lo.toFixed(5)}`)
+        + '\n' + (addr || '주소 확인 불가')
         + (allEnc ? '\n재생 · 저장 불가 (눌러서 이유 보기)'
           : q.list.length > 1 ? '\n눌러서 하나씩 넘겨봅니다' : '\n눌러서 재생');
       pin.append(t);
@@ -2472,6 +2469,7 @@ function infoCard(c) {
   const g = geoOf(c);
   const enc = !!c.encrypted;                       // 암호화 = 재생도 저장도 안 된다
   const locked = c.eventState === 'locked';        // 위치도 같이 잠긴다
+  const address = hasGeo ? ((g && g.addr) || e.city || addrText(g) || '주소 확인 중…') : null;
 
   box.innerHTML = `
     <div class="row"><div class="k">촬영 시각</div><div class="v">${fmtWhen(c.at)}${
@@ -2480,11 +2478,10 @@ function infoCard(c) {
     <div class="row"><div class="k">분류</div><div class="v">${KIND_LABEL[c.kind]}${trig ? ' · 트리거 ' + escapeHtml(trig) : ''}</div></div>
     <div class="row"><div class="k">위치</div><div class="v">${
       hasGeo
-        ? `${g && g.addr ? escapeHtml(g.addr) : (addrText(g) ? '<span style="color:var(--muted)">' + addrText(g) + '</span>' : '')}
-           <div class="sub">${la.toFixed(5)}, ${lo.toFixed(5)}
-             &nbsp;<a href="https://map.kakao.com/link/map/촬영지점,${la},${lo}" target="_blank" rel="noopener">카카오맵</a>
+        ? `<strong>${escapeHtml(address)}</strong>
+           <div class="sub"><a href="https://map.kakao.com/link/map/촬영지점,${la},${lo}" target="_blank" rel="noopener">카카오맵</a>
              &nbsp;<a href="https://www.google.com/maps?q=${la},${lo}" target="_blank" rel="noopener">구글맵</a>
-             ${e.city ? ' · ' + escapeHtml(e.city) : ''}</div>`
+           </div>`
         : `${locked ? '<span class="no">읽을 수 없음</span> ' : ''}<span style="color:var(--muted)">${whyNoPlace(c)}</span>`}</div></div>
     <div class="row"><div class="k">구성</div><div class="v">${
       c.segments.length > 1
@@ -2662,9 +2659,9 @@ function stampText(v, cam) {
   const t = `${d.getFullYear()}-${q(d.getMonth() + 1)}-${q(d.getDate())} `
     + `${q(d.getHours())}:${q(d.getMinutes())}:${q(d.getSeconds())}`
     + '.' + Math.floor(d.getMilliseconds() / 100);
-  // 위치는 주소가 있으면 주소, 없으면 좌표라도. 둘 다 없으면(RecentClips) 생략.
+  // 신고용 캡션에는 읽기 쉬운 주소만 쓴다. 주소가 없으면 좌표 대신 시각만 남긴다.
   const g = cur ? geoOf(cur) : null;
-  const where = g ? (g.addr || `${g.la.toFixed(5)}, ${g.lo.toFixed(5)}`) : '';
+  const where = g ? (g.addr || (cur.event && cur.event.city) || '') : '';
   const label = CAM_LABEL[cam] || cam;
   return [t, [label, where].filter(Boolean).join(' · ')];
 }
@@ -2929,7 +2926,7 @@ $('#main').innerHTML = `<section class="welcome" aria-label="TeslaCam 시작하�
     <svg viewBox="0 0 420 420" fill="none"><defs><pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="currentColor" opacity=".13"/></pattern><linearGradient id="vision" x1="0" y1="0" x2="0" y2="1"><stop stop-color="currentColor" stop-opacity=".02"/><stop offset="1" stop-color="currentColor" stop-opacity=".15"/></linearGradient></defs><rect width="420" height="420" fill="url(#dot-grid)"/><circle cx="210" cy="204" r="143" stroke="currentColor" opacity=".09"/><circle cx="210" cy="204" r="100" stroke="currentColor" stroke-dasharray="3 7" opacity=".2"/><path d="M184 154L142 65h136l-42 89z" fill="url(#vision)"/><path d="M184 252l-42 89h136l-42-89zM176 177L66 136v136l110-40zM244 177l110-41v136l-110-40z" fill="currentColor" opacity=".055"/><path d="M130 37v330M290 37v330" stroke="currentColor" opacity=".14"/><path d="M210 28v24m0 302v24" stroke="currentColor" stroke-width="2" opacity=".4"/><rect x="177" y="141" width="66" height="125" rx="25" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/><path d="M187 165q23-11 46 0l-4 24h-38zM191 230h38l4 16q-23 10-46 0z" fill="currentColor" opacity=".16"/><path d="M184 194v29m52-29v29M192 147h36" stroke="currentColor" opacity=".45"/><circle cx="210" cy="98" r="4" fill="currentColor"/><circle cx="104" cy="204" r="4" fill="currentColor"/><circle cx="316" cy="204" r="4" fill="currentColor"/><circle cx="210" cy="306" r="4" fill="currentColor"/><g fill="var(--muted)" font-family="sans-serif" font-size="10" letter-spacing="2"><text x="210" y="83" text-anchor="middle">FRONT</text><text x="80" y="208" text-anchor="end">LEFT</text><text x="340" y="208">RIGHT</text><text x="210" y="330" text-anchor="middle">REAR</text></g></svg>
     <div class="art-caption"><span>EVERY ANGLE. ONE MOMENT.</span><span>MULTI-CAMERA</span></div>
   </div></div>
-  <div class="welcome-features"><div class="welcome-feature"><span class="feature-n">01</span><div><h3>놓치지 않는 모든 방향</h3><p>감지된 카메라를 같은 시각으로 재생하고,<br>필요한 장면은 크게 확인하세요.</p></div></div><div class="welcome-feature"><span class="feature-n">02</span><div><h3>시간과 장소로 확인</h3><p>저장·센트리 영상에 좌표가 있으면<br>촬영 시각과 함께 확인할 수 있습니다.</p></div></div><div class="welcome-feature"><span class="feature-n">03</span><div><h3>필요한 구간만 저장</h3><p>A/B 구간을 반복 확인하고 시각·위치<br>캡션을 넣은 영상으로 저장하세요.</p></div></div></div>
+  <div class="welcome-features"><div class="welcome-feature"><span class="feature-n">01</span><div><h3>놓치지 않는 모든 방향</h3><p>감지된 카메라를 같은 시각으로 재생하고,<br>필요한 장면은 크게 확인하세요.</p></div></div><div class="welcome-feature"><span class="feature-n">02</span><div><h3>시간과 주소로 확인</h3><p>저장·센트리 영상에 위치 기록이 있으면<br>촬영 시각과 주소를 확인할 수 있습니다.</p></div></div><div class="welcome-feature"><span class="feature-n">03</span><div><h3>필요한 구간만 저장</h3><p>A/B 구간을 반복 확인하고 시각·주소<br>캡션을 넣은 영상으로 저장하세요.</p></div></div></div>
   <div class="welcome-foot"><span>USB의 최상위 폴더 또는 TeslaCam 폴더를 선택하세요. <b>RecentClips 상시 녹화는 위치가 저장되지 않아 촬영 시각만 표시됩니다.</b> ${ON_FILE ? '폴더까지 기억하려면 teslacam-viewer.bat으로 실행하세요.' : '다음에도 이어 보려면 상단의 ‘기억하며 열기’를 이용하세요.'}</span><span>키보드로 더 빠르게 <kbd>?</kbd></span></div>
 </section>`;
 $('#welcome-open').onclick = openFolder;
