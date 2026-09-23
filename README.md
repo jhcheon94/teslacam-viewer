@@ -4,6 +4,12 @@
 
 USB의 TeslaCam 폴더를 열어 여러 카메라 영상을 함께 재생하고, 원하는 시각으로 이동하고, 중요한 장면을 저장하는 브라우저 뷰어입니다. 영상 업로드나 계정 로그인이 필요하지 않습니다.
 
+> [!IMPORTANT]
+> **사용 전 필수 확인: 테슬라 차량 설정에서 대시캠 녹화 암호화를 꺼 주세요.**
+> 차량 화면의 **컨트롤 → 안전 → 대시캠 녹화 암호화(Encrypt Dashcam Recordings)**를 해제한 뒤 새로 녹화한 영상을 사용하세요. 이 뷰어는 **암호화된 영상을 직접 재생하거나 복호화하지 못합니다.**
+> 설정을 꺼도 이미 암호화된 영상이 자동으로 해제되지는 않습니다. 기존 암호화 영상은 Tesla 공식 뷰어를 이용해 주세요. 메뉴 표시 여부와 이름은 차량·소프트웨어에 따라 다를 수 있습니다.
+> 설정 안내: [Tesla 공식 대시캠 설명서](https://www.tesla.com/ownersmanual/model3/en_ie/GUID-3BCC07CE-5EA2-4F40-99D1-27690898FF3C.html)
+
 ![TeslaCam Viewer 시작 화면](docs/images/home.png)
 
 ## 1분 안에 시작하기
@@ -147,36 +153,12 @@ Windows 실행기는 localhost:8787부터 사용 가능한 포트를 찾습니�
 | --- | --- |
 | 폴더 버튼을 눌러도 창이 안 뜸 | 내장 미리보기 대신 Chrome/Edge에서 실행기 사용 |
 | 영상이 하나도 안 보임 | USB 안에 TeslaCam 및 하위 녹화 폴더가 있는지 확인 |
-| 암호화 또는 재생 불가 표시 | 평문 여부·파일 손상·브라우저 코덱 지원 확인 |
+| 암호화 또는 재생 불가 표시 | 차량의 대시캠 녹화 암호화를 해제한 뒤 새로 녹화한 영상인지 확인. 기존 암호화 영상은 자동 해제되지 않음 |
 | 폴더를 기억하지 못함 | localhost로 열었는지, 같은 브라우저와 포트인지 확인 |
 | 지도가 안 보임 | 지도·주소 설정, 연결 상태 확인 또는 지점별 카드 사용 |
 | 저장이 중단됨 | 해당 영상이 실제 재생되는지 확인하고 탭을 전경에 유지 |
-
-## 개발과 검증
-
-앱은 teslacam-viewer.html 하나로 동작합니다. 실행기는 Windows의 PowerShell HttpListener로 HTML을 제공합니다.
-
-~~~text
-teslacam-viewer.html   앱 본체
-teslacam-viewer.bat    Windows 실행기
-teslacam-viewer.ps1    localhost 서버
-README.md             빠른 시작과 사용 매뉴얼
-docs/images/          합성 데이터로 캡처한 예시
-scripts/              캡처·기능 검증 스크립트
-~~~
-
-개발용 캡처·검증에는 Node.js와 Playwright가 필요합니다. 앱 사용에는 필요하지 않습니다.
-
-~~~sh
-npm install
-npx playwright install chromium
-npm run screenshots
-~~~
-
-실제 영상이나 계정 데이터는 필요하지 않습니다. 테스트는 임시 브라우저와 합성 MP4를 사용합니다.
 
 ## 라이선스
 
 MIT License. 자세한 내용은 [LICENSE](LICENSE)를 참고하세요.
 
-다음 개선 후보는 [ROADMAP](docs/ROADMAP.md)에 정리했습니다.
