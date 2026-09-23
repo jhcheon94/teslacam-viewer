@@ -1,0 +1,13 @@
+{
+  "name": "teslacam-local-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local TeslaCam viewer and documentation screenshot checks",
+  "scripts": {
+    "screenshots": "node scripts/screenshots.cjs",
+    "test": "node scripts/screenshots.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
