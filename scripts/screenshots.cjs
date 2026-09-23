@@ -20,6 +20,8 @@ const { pathToFileURL } = require('node:url');
     await page.route('https://**/*', route => route.abort());
     await page.goto(pathToFileURL(path.join(root, 'teslacam-viewer.html')).href);
     await page.evaluate(() => { document.querySelector('#net').checked = false; });
+    assert.equal(await page.evaluate(() => visibleEventName({ kind: 'saved', eventState: 'locked', event: null })), '');
+    assert.equal(await page.evaluate(() => visibleEventName({ kind: 'saved', eventState: 'ok', event: { reason: 'user_interaction_honk' } })), '경적');
     const shot = name => page.screenshot({ path: path.join(output, name + '.png'), animations: 'disabled' });
     await shot('home');
     await page.getByRole('button', { name: '단축키 안내', exact: true }).first().click();
