@@ -412,7 +412,7 @@ body{letter-spacing:-.2px}button,a,input,select{-webkit-tap-highlight-color:tran
 
 const $ = s => document.querySelector(s);
 const KIND = { SentryClips: 'sentry', SavedClips: 'saved', RecentClips: 'recent' };
-const KIND_LABEL = { sentry: '센트리', saved: '이벤트', recent: '최근' };
+const KIND_LABEL = { sentry: '센트리 이벤트', saved: '저장 이벤트', recent: '상시 녹화' };
 const CAM_LABEL = {
   front: '전방', back: '후방',
   left_repeater: '좌측', right_repeater: '우측',
@@ -826,11 +826,18 @@ function drawFilters() {
   CLIPS.forEach(c => counts[c.kind] = (counts[c.kind] || 0) + 1);
   const f = $('#filters');
   f.innerHTML = '';
-  [['all', '전체'], ['sentry', '센트리'], ['saved', '이벤트'], ['recent', '최근']].forEach(([k, label]) => {
+  const choices = [
+    ['all', '전체', '지원하는 모든 영상'],
+    ['sentry', '센트리', '주차 중 센트리 모드가 감지해 저장한 영상'],
+    ['saved', '저장', '화면·아이콘·경적 등으로 보존한 영상'],
+    ['recent', '상시', '주행 중 순환 저장된 최근 영상 · 위치 정보 없음']
+  ];
+  choices.forEach(([k, label, title]) => {
     if (k !== 'all' && !counts[k]) return;
     const b = document.createElement('button');
     b.className = 'chip' + (filter === k ? ' on' : '');
     b.textContent = `${label} ${counts[k] || 0}`;
+    b.title = title;
     b.onclick = () => { filter = k; LS.set('filter', filter); drawFilters(); drawList(); };
     f.append(b);
   });
@@ -1032,7 +1039,7 @@ function timelineStrip() {
   ruler.className = 'tlruler';
   track.append(ruler);
 
-  const LANES = [['sentry', '센트리'], ['saved', '이벤트'], ['recent', '최근']];
+  const LANES = [['sentry', '센트리 이벤트'], ['saved', '저장 이벤트'], ['recent', '상시 녹화']];
   LANES.forEach(([kind, label]) => {
     const rows = mine.filter(x => x.kind === kind);
     if (!rows.length) return;
@@ -2912,8 +2919,8 @@ $('#main').innerHTML = `<section class="welcome" aria-label="TeslaCam 시작하�
     <svg viewBox="0 0 420 420" fill="none"><defs><pattern id="dot-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="currentColor" opacity=".13"/></pattern><linearGradient id="vision" x1="0" y1="0" x2="0" y2="1"><stop stop-color="currentColor" stop-opacity=".02"/><stop offset="1" stop-color="currentColor" stop-opacity=".15"/></linearGradient></defs><rect width="420" height="420" fill="url(#dot-grid)"/><circle cx="210" cy="204" r="143" stroke="currentColor" opacity=".09"/><circle cx="210" cy="204" r="100" stroke="currentColor" stroke-dasharray="3 7" opacity=".2"/><path d="M184 154L142 65h136l-42 89z" fill="url(#vision)"/><path d="M184 252l-42 89h136l-42-89zM176 177L66 136v136l110-40zM244 177l110-41v136l-110-40z" fill="currentColor" opacity=".055"/><path d="M130 37v330M290 37v330" stroke="currentColor" opacity=".14"/><path d="M210 28v24m0 302v24" stroke="currentColor" stroke-width="2" opacity=".4"/><rect x="177" y="141" width="66" height="125" rx="25" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/><path d="M187 165q23-11 46 0l-4 24h-38zM191 230h38l4 16q-23 10-46 0z" fill="currentColor" opacity=".16"/><path d="M184 194v29m52-29v29M192 147h36" stroke="currentColor" opacity=".45"/><circle cx="210" cy="98" r="4" fill="currentColor"/><circle cx="104" cy="204" r="4" fill="currentColor"/><circle cx="316" cy="204" r="4" fill="currentColor"/><circle cx="210" cy="306" r="4" fill="currentColor"/><g fill="var(--muted)" font-family="sans-serif" font-size="10" letter-spacing="2"><text x="210" y="83" text-anchor="middle">FRONT</text><text x="80" y="208" text-anchor="end">LEFT</text><text x="340" y="208">RIGHT</text><text x="210" y="330" text-anchor="middle">REAR</text></g></svg>
     <div class="art-caption"><span>EVERY ANGLE. ONE MOMENT.</span><span>MULTI-CAMERA</span></div>
   </div></div>
-  <div class="welcome-features"><div class="welcome-feature"><span class="feature-n">01</span><div><h3>놓치지 않는 모든 방향</h3><p>감지된 카메라를 같은 시각으로 재생하고,<br>필요한 장면은 크게 확인하세요.</p></div></div><div class="welcome-feature"><span class="feature-n">02</span><div><h3>시간과 장소로 확인</h3><p>촬영 날짜·시각과 기록된 위치를 확인해<br>신고 자료를 정리할 수 있습니다.</p></div></div><div class="welcome-feature"><span class="feature-n">03</span><div><h3>필요한 구간만 저장</h3><p>A/B 구간을 반복 확인하고 시각·위치<br>캡션을 넣은 영상으로 저장하세요.</p></div></div></div>
-  <div class="welcome-foot"><span>USB의 최상위 폴더 또는 TeslaCam 폴더를 선택하세요. ${ON_FILE ? '폴더까지 기억하려면 teslacam-viewer.bat으로 실행하세요.' : '다음에도 이어 보려면 상단의 ‘기억하며 열기’를 이용하세요.'}</span><span>키보드로 더 빠르게 <kbd>?</kbd></span></div>
+  <div class="welcome-features"><div class="welcome-feature"><span class="feature-n">01</span><div><h3>놓치지 않는 모든 방향</h3><p>감지된 카메라를 같은 시각으로 재생하고,<br>필요한 장면은 크게 확인하세요.</p></div></div><div class="welcome-feature"><span class="feature-n">02</span><div><h3>시간과 장소로 확인</h3><p>저장·센트리 영상에 좌표가 있으면<br>촬영 시각과 함께 확인할 수 있습니다.</p></div></div><div class="welcome-feature"><span class="feature-n">03</span><div><h3>필요한 구간만 저장</h3><p>A/B 구간을 반복 확인하고 시각·위치<br>캡션을 넣은 영상으로 저장하세요.</p></div></div></div>
+  <div class="welcome-foot"><span>USB의 최상위 폴더 또는 TeslaCam 폴더를 선택하세요. <b>RecentClips 상시 녹화는 위치가 저장되지 않아 촬영 시각만 표시됩니다.</b> ${ON_FILE ? '폴더까지 기억하려면 teslacam-viewer.bat으로 실행하세요.' : '다음에도 이어 보려면 상단의 ‘기억하며 열기’를 이용하세요.'}</span><span>키보드로 더 빠르게 <kbd>?</kbd></span></div>
 </section>`;
 $('#welcome-open').onclick = openFolder;
 $('#welcome-help').onclick = keysPanel;
