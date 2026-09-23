@@ -106,6 +106,8 @@ const { pathToFileURL } = require('node:url');
       select(CLIPS.find(c => c.event.reason === 'user_interaction_honk'));
     });
     await page.waitForFunction(() => master?.readyState >= 2);
+    assert.equal(await page.evaluate(() => stampText(master, 'front')[1]), '전방 · 가상 예시 위치');
+    assert.doesNotMatch(await page.locator('#infocard').innerText(), /37\.55|126\.98/);
     const journeyBox = await page.locator('#journey-seek').boundingBox();
     await page.mouse.move(journeyBox.x + journeyBox.width * 0.5, journeyBox.y + journeyBox.height * 0.5);
     assert.equal(await page.locator('#journey-hover').evaluate(el => el.classList.contains('show')), true);
