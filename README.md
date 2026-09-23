@@ -1,8 +1,16 @@
-# TeslaCam Viewer
+# LAMO TeCam
 
-**설치 없이, 내 PC에서 보는 테슬라 블랙박스.**
+<p align="center">
+  <img src="docs/images/lamo-tecam-logo-v2.png" width="180" alt="LAMO TeCam 로고">
+</p>
+
+**테슬라의 모든 시선을 한눈에.**
+
+**LAMO**는 검정·하양 고양이 라떼와 삼색 고양이 모카의 이름을 합친 브랜드이며, **TeCam(테캠)**은 TeslaCam을 쉽고 빠르게 살펴보는 뷰어라는 뜻입니다.
 
 USB의 TeslaCam 폴더를 열어 여러 카메라 영상을 함께 재생하고, 원하는 시각으로 이동하고, 중요한 장면을 저장하는 브라우저 뷰어입니다. 영상 업로드나 계정 로그인이 필요하지 않습니다.
+
+> **LAMO TeCam은 Tesla, Inc.와 관련 없는 독립 오픈소스 프로젝트입니다.** Tesla 및 TeslaCam은 각 권리자의 상표일 수 있습니다.
 
 > [!IMPORTANT]
 > **사용 전 필수 확인: 테슬라 차량 설정에서 대시캠 녹화 암호화를 꺼 주세요.**
@@ -10,12 +18,12 @@ USB의 TeslaCam 폴더를 열어 여러 카메라 영상을 함께 재생하고,
 > 설정을 꺼도 이미 암호화된 영상이 자동으로 해제되지는 않습니다. 기존 암호화 영상은 [Tesla 대시캠 페이지](https://dashcam.tesla.com/)에 업로드해 복호화한 뒤, 내려받은 MP4 파일을 이 뷰어에서 열 수 있습니다. 메뉴 표시 여부와 이름은 차량·소프트웨어에 따라 다를 수 있습니다.
 > 설정 안내: [Tesla 공식 대시캠 설명서](https://www.tesla.com/ownersmanual/model3/en_ie/GUID-3BCC07CE-5EA2-4F40-99D1-27690898FF3C.html)
 
-![TeslaCam Viewer 시작 화면](docs/images/home.png)
+![LAMO TeCam 시작 화면](docs/images/home.png)
 
 ## 1분 안에 시작하기
 
 1. 이 저장소의 **Code → Download ZIP**을 누르고 압축을 풉니다.
-2. Windows에서는 **teslacam-viewer.bat**을 실행합니다. 함께 들어 있는 HTML·PS1 파일은 같은 폴더에 두세요.
+2. Windows에서는 **teslacam-viewer.bat**을 실행합니다. 함께 들어 있는 HTML·PS1·`lamo-tecam-logo-v2.png` 파일은 같은 폴더에 두세요.
 3. 열린 Chrome 또는 Edge에서 **폴더 열기**를 누르고 USB의 **TeslaCam 폴더**를 선택합니다.
 4. 왼쪽 목록에서 영상을 선택하고 재생합니다.
 
@@ -167,7 +175,7 @@ TeslaCam 폴더에는 성격이 다른 영상이 함께 들어 있습니다. 이
 - RecentClips 상시 녹화에는 보통 위치 이벤트 파일이 없으므로 지도에 표시할 수 없습니다. 날짜·시각은 파일명에서 읽습니다.
 - 지도·주소 서비스의 응답이나 타일 제공을 보장하지 않습니다.
 - 많은 카메라 동시 재생은 PC 성능과 영상 코덱에 영향을 받습니다.
-- 이 프로젝트는 Tesla의 공식 제품이 아닌 독립적인 로컬 뷰어입니다.
+- LAMO TeCam은 Tesla의 공식 제품이 아닌 독립적인 로컬 뷰어입니다.
 
 ## 문제가 생겼을 때
 

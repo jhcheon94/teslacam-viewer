@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TeslaCam 뷰어</title>
+<title>LAMO TeCam — TeslaCam Viewer</title>
 <style>
 :root{
   color-scheme: dark;              /* select 팝업·스크롤바가 테마를 따라가게 */
@@ -343,7 +343,7 @@ kbd{font:inherit;font-size:11px;background:var(--surface2);border:1px solid var(
 [hidden]{display:none!important}
 body{letter-spacing:-.2px}button,a,input,select{-webkit-tap-highlight-color:transparent}button{transition:background .16s,border-color .16s,box-shadow .16s}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--ok);outline-offset:3px}button:disabled{transform:none}
 .hd{padding:18px 26px;gap:16px;min-height:82px;background:var(--surface)}
-.brand{display:flex;align-items:center;gap:11px;flex-shrink:0}.brand-mark{width:37px;height:37px;display:grid;place-items:center;background:var(--ink);color:var(--surface);border-radius:12px}.brand h1{font-size:18px;letter-spacing:-.6px}.brand small{display:block;font-size:9px;font-weight:600;letter-spacing:2px;color:var(--muted);margin-top:1px}.hd .sub{font-size:11px;padding-left:18px;border-left:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0}.brand-mark{width:42px;height:42px;display:grid;place-items:center;color:var(--surface);border-radius:12px;overflow:hidden;flex-shrink:0}.brand-mark img{display:block;width:100%;height:100%;object-fit:contain}.brand-mark img+svg{display:none}.brand-mark img[hidden]+svg{display:block;width:24px;height:24px;padding:2px;background:var(--ink);border-radius:11px}.brand h1{font-size:18px;letter-spacing:-.6px}.brand small{display:block;font-size:8px;font-weight:650;letter-spacing:1.35px;color:var(--muted);margin-top:1px}.hd .sub{font-size:11px;padding-left:18px;border-left:1px solid var(--line)}
 .btn{height:39px;border-radius:11px;background:var(--surface);font-weight:550;padding:0 15px}.btn:hover{background:var(--surface2);border-color:var(--muted)}.btn.go{background:var(--ok);color:var(--accent-ink);border-color:var(--ok);box-shadow:0 3px 10px color-mix(in srgb,var(--ok) 13%,transparent)}.btn.go:hover{filter:brightness(1.08)}#pick{gap:8px}#pick::before{content:'+';font-size:20px;font-weight:400;line-height:1}
 .viewsw,.modesw{padding:3px;gap:2px;background:var(--surface2);border:1px solid var(--line);border-radius:11px}.viewsw button{border-radius:8px;background:transparent;height:31px;padding:0 12px;font-size:12px}.viewsw button.on,.modebtn.on{background:var(--surface);color:var(--ok);box-shadow:0 2px 5px #00000009}.modebtn{border-radius:7px}.modebtn+.modebtn{border-left:0}.netsw{gap:8px;font-size:11px}.netsw input{appearance:none;width:29px;height:17px;border-radius:20px;background:var(--line);position:relative;cursor:pointer;flex-shrink:0;margin:0}.netsw input::after{content:'';position:absolute;width:11px;height:11px;top:3px;left:3px;border-radius:50%;background:var(--surface);transition:transform .16s}.netsw input:checked{background:var(--ok)}.netsw input:checked::after{transform:translateX(12px);background:var(--accent-ink)}
 .body{grid-template-columns:300px minmax(0,1fr)}.side{padding:12px 10px;background:var(--surface)}.side::before{content:'영상 라이브러리';padding:12px 12px 7px;font-size:11px;font-weight:650;color:var(--muted);letter-spacing:1px}.filters{padding:10px 8px 17px;gap:4px}.chip{border-color:transparent;border-radius:8px;padding:6px 9px}.chip:hover{background:var(--surface2)}.chip.on{background:color-mix(in srgb,var(--ok) 10%,var(--surface));border-color:color-mix(in srgb,var(--ok) 22%,var(--line));font-weight:650}.list{padding-top:8px}.item{margin:4px 0;padding:16px 12px;border:1px solid transparent;border-radius:12px;gap:7px}.item.on{box-shadow:none;background:color-mix(in srgb,var(--ok) 8%,var(--surface));border-color:color-mix(in srgb,var(--ok) 25%,var(--line))}.item .when{font-size:13px}.item .meta{font-size:11px;line-height:1.8;margin-top:5px}.pill{font-size:9px;padding:3px 6px;border-radius:5px}
@@ -379,7 +379,7 @@ body{letter-spacing:-.2px}button,a,input,select{-webkit-tap-highlight-color:tran
 <body>
 <div class="wrap">
   <div class="hd">
-    <div class="brand"><span class="brand-mark" aria-hidden="true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="4"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1-2h6l1 2"/></svg></span><div><h1>TeslaCam <span style="font-weight:400">뷰어</span></h1><small>YOUR DRIVE, IN FOCUS</small></div></div>
+    <div class="brand"><span class="brand-mark" aria-hidden="true"><img src="lamo-tecam-logo-v2.png" alt="" onerror="this.hidden=true"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="4"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1-2h6l1 2"/></svg></span><div><h1>LAMO <span style="font-weight:400">TeCam</span></h1><small>LATTE · MOCHA · TESLACAM</small></div></div>
     <div class="sub" id="sub">USB 의 TeslaCam 폴더를 고르세요</div>
     <button class="btn shortcut-help" id="help" title="단축키 보기 ( ? )" aria-label="단축키 안내" aria-haspopup="dialog">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 1 1 3.6 3.1c-.6.2-.8.7-.8 1.3v.4"/><circle cx="12" cy="17.4" r="0.9" fill="currentColor" stroke="none"/></svg>
@@ -2914,10 +2914,10 @@ function drawEmpty() {
 }
 
 /* ---------- 첫 화면 ---------- */
-$('#main').innerHTML = `<section class="welcome" aria-label="TeslaCam 시작하기">
+$('#main').innerHTML = `<section class="welcome" aria-label="LAMO TeCam 시작하기">
   <aside class="encryption-notice" aria-label="사용 전 필수 확인"><strong>사용 전 필수 · 차량의 대시캠 녹화 암호화를 꺼 주세요</strong><p>테슬라 화면의 <b>컨트롤 → 안전 → 대시캠 녹화 암호화</b>를 해제한 뒤 새로 녹화한 영상을 사용하세요. 이 뷰어는 암호화된 영상을 직접 재생하지 못합니다.</p><small>기존 암호화 영상은 <a href="https://dashcam.tesla.com" target="_blank" rel="noopener">Tesla 대시캠 페이지</a>에 업로드해 복호화한 뒤, 내려받은 MP4를 이 뷰어에서 열 수 있습니다. 메뉴 이름은 차량·소프트웨어에 따라 다를 수 있습니다.</small></aside>
   <div class="welcome-top"><div>
-    <div class="eyebrow">TESLACAM · LOCAL VIEWER</div>
+    <div class="eyebrow">LAMO TECAM · LOCAL VIEWER</div>
     <h2>지나온 순간을,<br>더 선명하게.</h2>
     <p class="lead">모든 카메라의 시선으로 주행을 돌아보세요.<br>USB 폴더를 열면 영상, 시간, 장소가<br>하나의 화면으로 이어집니다.</p>
     <div class="welcome-actions"><button class="btn go" id="welcome-open">폴더 열고 시작하기 <span aria-hidden="true">↗</span></button><button class="btn" id="welcome-help">단축키 안내</button></div>
